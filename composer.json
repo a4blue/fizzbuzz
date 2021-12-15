@@ -1,0 +1,41 @@
+{
+    "name": "a4blue/fizzbuzz",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "A4blue\\Fizzbuzz\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "A4blue\\Fizzbuzz\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alexander Ratajczak",
+            "email": "a4blue@hotmail.de"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "symfony/console": "^6.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.4",
+        "php-parallel-lint/php-parallel-lint": "^1.3",
+        "phpstan/phpstan": "^1.2",
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "composer-schema-validate": "@composer validate --no-check-all --strict",
+        "lint": "parallel-lint src tests",
+        "test": "phpunit",
+        "cs": "php-cs-fixer fix -v --dry-run --using-cache no --allow-risky yes",
+        "cs-fix": "php-cs-fixer fix --using-cache no --allow-risky yes",
+        "phpstan": "phpstan analyse"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

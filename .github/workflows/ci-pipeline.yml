@@ -1,0 +1,54 @@
+name: "CI Pipeline"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  default:
+
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        php-version:
+          - "8.0"
+          - "8.1"
+        operating-system:
+          - "ubuntu-18.04"
+          - "ubuntu-20.04"
+          - "windows-2019"
+          - "windows-2022"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Setup PHP Action"
+        uses: shivammathur/setup-php@2.16.0
+        with:
+          php-version: "${{ matrix.php-version }}"
+          tools: composer
+      
+      - name: "Composer Update"
+        run: "composer update --no-interaction --no-progress"
+
+      - name: "Validate composer.json"
+        run: "composer composer-schema-validate"
+
+      - name: "Lint PHP Code"
+        run: "composer lint"
+
+      - name: "PHP CS Fixer Formatting Check"
+        env:
+          PHP_CS_FIXER_IGNORE_ENV: true
+        run: "composer cs"
+
+      - name: "PHPStan Analyse"
+        run: "composer phpstan"
+
+      - name: "Unit Test"
+        run: "composer test"
