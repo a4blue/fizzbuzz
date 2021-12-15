@@ -1,6 +1,8 @@
 {
     "name": "a4blue/fizzbuzz",
     "type": "project",
+    "description": "FizzBuzz implementation for an Interview",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
             "A4blue\\Fizzbuzz\\": "src/"
